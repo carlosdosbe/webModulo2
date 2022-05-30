@@ -10,6 +10,7 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./css/prism.css">
   </head>
   <body>
     <!-- As a heading -->
@@ -57,6 +58,151 @@
           <img src="./img/Alberti.png" alt="" />
         </div>
       </div>
+    </section>
+
+    <section class="container">
+      <div class="row">
+        <div class="col 12">
+          <h1>Menu</h1>
+          <p>El funcionamiento es sencillo, al iniciar el programa, saldra un menu donde únicamente tenemos que 
+            seleccionar la opciones que necesitemos, por ejemplo si queremos cifrar seleccionaremos la palabra o frase 
+            que queremos cifrar, si queremos descifrar únicamente nos pedira las respectivas llaves y posteriormente 
+            saldra el respectivo resultado.
+          </p>
+          <pre>
+            <code class="language-python">
+    """
+    Función para mostrar las opciones disponibles del programa
+    Regresa el valor que el usuario ingresa.
+    """
+    def menu():
+    print("Opciones disponibles: ")
+    print("a. Cifrar")
+    print("b. Descifrar")
+    print("c. Ayuda")
+    print("d. Salir")
+    return input("Seleccionar opción: ")
+            </code>
+          </pre>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h1>Descifrar</h1>
+          <pre>
+            <code class="language-python">
+    """
+    Función que realiza el descifrado de la palabra/frase que el usuario ingresa.
+    Recibe dos parámetros, el disco externo e interno con los cuales realizará los cálculos.
+    El programa solicita la frase/palabra y clave.
+    Descifra la palabra/frase realizando los cálculos con la clave recibida.
+    Muestra la palabra descifrada.
+    """
+    def descifrar(dExterno, dInterno):
+        cadenaEncr = ""
+        randE = 0
+        randI = 0
+        original = ""
+        clave = ""
+    
+        cadenaEncr = input("Ingresar la palabra/frase a descifrar: ")
+        cadenaEncr = cadenaEncr.lower()
+    
+        clave = input("Ingresar la clave correspondiente para descifrar: ");
+    
+        tamExt = len (dExterno)
+        tamInt = len (dInterno)
+        
+        #print("Tamaño disco interno: ", tamExt, " tamaño disco interno: ", tamInt)
+    
+        randE = dExterno.index(clave[0])
+        randI = dInterno.index(clave[1])
+    
+        #print("randE ", randE, " randI ", randI)
+    
+        print("Descifrando ***" + cadenaEncr + "***");
+    
+    
+        nuevaPosicionE = randI - randE
+    
+        tamCadEncr = len(cadenaEncr)
+    
+        for i in range(0, tamCadEncr):
+            w = dInterno.index(cadenaEncr[i])
+            #print("w ", w, " ", i, cadenaEncr[i])
+            nuevo = w - nuevaPosicionE
+            if nuevo < 0:
+                nuevo = nuevo + tamExt
+    
+            original += dExterno[nuevo%tamExt]
+            
+        print("El descifrado es ***", original, "***")
+            </code>
+          </pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col 12">
+          <h1>Cifrar</h1>
+          <pre>
+            <code class="language-python">
+    """
+    Función principal del programa.
+    Define los valores para el disco interno y disco externo.
+    Muestra el menu y lee la opción que se ingresa.
+    Realiza la operación de acuerdo a la opción.
+    Si se ingresa una opción incorrecta, el programa termina.
+    """
+    def main():
+        
+        discoExt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+        discoInt = "abcdefghijklmnopqrstuvwxyz$#@^!~:;/% "
+    
+        opcion = ""
+    
+        print("***********************DISCO DE ALBERTI***********************")
+        print("Cifrado de palabra/frase (caracteres válidos: [A-Z][0-9] y espacio).")
+        opcion = menu()
+        opcion = opcion.lower()
+        
+        print("Opcion elegida: ", opcion)
+        
+        if opcion == "a":
+            cifrar(discoExt, discoInt)
+        elif opcion == "b":
+            descifrar(discoExt, discoInt)
+        elif opcion == "c":
+            mostrarAyuda(discoExt, discoInt)
+        elif opcion == "d":
+            print("SALIR")
+        else:
+            print("Incorrecto: SALIR")
+            </code>
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <h1>Funcionamiento</h1>
+      <div class="row">
+        <div class="col-12">
+          <h2>Menu</h2>
+          <img src="./img/menu.png" alt="" class="w-100">
+        </div>
+        <div class="col-12">
+          <h2>Cifrando</h2>
+          <img src="./img/cifrando .png" alt="" class="w-100">
+        </div>
+        <div class="col-12">
+          <h2>Descifrando</h2>
+          <img src="./img/descifrando.png" alt="" class="w-100">
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
       <div class="row my-5">
         <div class="col-6">
           <iframe
@@ -82,6 +228,8 @@
         </div>
       </div>
     </section>
+
+    <script src="./js/prism.js"></script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
